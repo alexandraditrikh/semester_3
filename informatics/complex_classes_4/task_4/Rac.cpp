@@ -28,7 +28,6 @@ class Rac {
             zn = -zn;
         }
     }
-
 public: 
     Rac(int ch = 0, int zn = 1) : ch(ch), zn(zn) {
         if (zn == 0) {
@@ -53,25 +52,44 @@ public:
         reduce(); 
     }
 
-    void adding_fraction_modif(const Rac& other) {
-        ch = ch * other.zn + other.ch * zn;
-        zn = zn * other.zn;
-        reduce();
+    Rac operator+(const Rac& other) const {
+       if (zn == other.zn) return Rac(ch + other.ch, zn);
+       return Rac(ch * other.zn + other.ch * zn, zn * other.zn);
     }
-    
-    Rac multiplication_fraction_gener(const Rac& other) const {
-        Rac result(ch * other.ch, zn * other.zn);
-        return result;
+    Rac operator*(const Rac& other) const {
+        return Rac(ch * other.ch, zn * other.zn);
     }
-    
-    void output() const {
-        if (zn == 1) {
-            cout << ch;
-        } else {
-            cout << ch << "/" << zn;
-        }
+    friend ostream& operator<<(ostream& os, const Rac& r);
+    friend istream& operator>>(istream& is, Rac& r);
+    Rac& operator++() { 
+        ch += zn;
+        return *this;  // Возвращаем сам объект
     }
+    Rac operator++(int) {  // int - фиктивный параметр для различия
+        Rac temp = *this;  // Сохраняем исходное значение
+        ch += zn;          // Изменяем текущий объект
+        return temp;       // Возвращаем старое значение
+    }
+
 };
+
+ostream& operator<<(ostream& os, const Rac& r) {
+    if (r.zn == 1) {
+        os << r.ch;
+    } else {
+        os << r.ch << "/" << r.zn;
+    }
+    return os;
+}
+istream& operator>>(istream& is, Rac& r) {
+    int ch, zn;
+    if (is >> ch >> zn) {
+        r = Rac(ch, zn);
+    }
+    return is;
+}
+
+
 
 Rac* create_array(int n) {
     if (n <= 0) {
