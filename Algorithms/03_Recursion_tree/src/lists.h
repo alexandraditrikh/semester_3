@@ -1,9 +1,11 @@
-#include <iostream>
-#include <stdexcept>
-
-#include "lists.h"
+#pragma once
 
 using namespace std;
+
+struct Elem {
+    int info;
+    Elem* next;
+};
 
 Elem* create_new_elem(int x){
     Elem* new_elem = new Elem;
@@ -42,6 +44,7 @@ Elem*  create_and_enter_list(){
 
     return top;
 }
+
 void output_list(Elem* top){
     Elem* cur = top;
     while (cur){
@@ -51,51 +54,3 @@ void output_list(Elem* top){
     cout << endl;
 }
 
-//1
-int number_of_occurr(Elem* cur, int x) {
-    if (!cur) return 0;
-    
-    if (cur->info == x) {
-        return 1 + number_of_occurr(cur->next, x);
-    } else {
-        return number_of_occurr(cur->next, x);
-    }
-}
-
-//2
-void delete_first_occurr(Elem* cur, int x){
-    if (!cur) return;
-
-    if (cur->info == x) ;
-}
-
-
-int main() {
-    Elem* top = create_and_enter_list();
-    
-    int choice;
-    if (!(cin >> choice)) {
-        cerr << "!(cin >> choice)";
-        return 1;
-    }
-
-    switch (choice){
-    case 1: {
-        int x;
-        cout << "enter x" << endl;
-        if (!(cin >> x)) {
-            cerr << "!(cin >> x)";
-            return 1;
-        }
-        
-        int num = number_of_occurr(top, x); 
-        cout << "num of occurr " << x << ": " << num << endl;
-    }
-    case 2: {
-
-    }
-    }
-    
-    
-    return 0;
-}

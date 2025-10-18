@@ -80,6 +80,7 @@ Rac* create_array(int n) {
     }
     return new Rac[n];
 }
+
 bool enter_array(Rac* array, int n) {
     if (!array || n <= 0) {
         cerr << "err: invalid array or size" << endl;
@@ -97,6 +98,7 @@ bool enter_array(Rac* array, int n) {
     }
     return true;
 }
+
 void output_array(Rac* array, int n) {
     if (!array || n <= 0) return;
 
@@ -127,7 +129,10 @@ void delete_matrix(Rac** matrix, int n) {
     }
     delete[] matrix;
 }
+
 Rac** create_matrix(int n) {
+    if (n <= 0) return nullptr;
+    
     Rac** matrix = new Rac*[n];
     if (!matrix) {
         return nullptr;
@@ -145,6 +150,7 @@ Rac** create_matrix(int n) {
     }
     return matrix;
 }
+
 bool enter_matrix(Rac** matrix, int n) {
     if (!matrix || n <= 0) {
         cerr << "err: invalid matrix or size" << endl;

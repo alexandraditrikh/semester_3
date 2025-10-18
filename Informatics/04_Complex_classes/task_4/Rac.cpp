@@ -52,7 +52,6 @@ public:
         reduce(); 
     }
 
-    // Перегрузка операторов вместо методов
     Rac operator+(const Rac& other) const {
         return Rac(ch * other.zn + other.ch * zn, zn * other.zn);
     }
@@ -60,26 +59,23 @@ public:
     Rac operator*(const Rac& other) const {
         return Rac(ch * other.ch, zn * other.zn);
     }
-    
-    // Префиксный инкремент
+
     Rac& operator++() { 
         ch += zn;
         return *this;
     }
     
-    // Постфиксный инкремент
     Rac operator++(int) {
         Rac temp = *this;
         ch += zn;
+        reduce();
         return temp;
     }
     
-    // Сложение с целым числом
     Rac operator+(int dig) const {
         return *this + Rac(dig, 1);
     }
     
-    // Оператор присваивания
     Rac& operator=(const Rac& other) {
         if (this != &other) {
             ch = other.ch;
@@ -87,12 +83,10 @@ public:
         }
         return *this;
     }
-    
-    // Дружественные функции для ввода/вывода
+
     friend ostream& operator<<(ostream& os, const Rac& r);
     friend istream& operator>>(istream& is, Rac& r);
-    
-    // Старые методы для совместимости (убрать в чистой реализации)
+
     void output() const {
         if (zn == 1) {
             cout << ch;
@@ -104,13 +98,11 @@ public:
     Rac multiplication_fraction_gener(const Rac& other) const {
         return *this * other;
     }
-    
     void adding_fraction_modif(const Rac& other) {
         *this = *this + other;
     }
 };
 
-// Перегрузка оператора вывода
 ostream& operator<<(ostream& os, const Rac& r) {
     if (r.zn == 1) {
         os << r.ch;
@@ -120,7 +112,6 @@ ostream& operator<<(ostream& os, const Rac& r) {
     return os;
 }
 
-// Перегрузка оператора ввода
 istream& operator>>(istream& is, Rac& r) {
     int ch, zn;
     if (is >> ch >> zn) {
@@ -129,7 +120,6 @@ istream& operator>>(istream& is, Rac& r) {
     return is;
 }
 
-// Глобальные функции для работы с массивами
 Rac* create_array(int n) {
     if (n <= 0) {
         cerr << "err: size array <= 0" << endl;
@@ -179,7 +169,6 @@ void delete_array(Rac* array) {
     }
 }
 
-// Глобальные функции для работы с матрицами
 Rac** create_matrix(int n) {
     if (n <= 0) return nullptr;
     
@@ -314,6 +303,9 @@ int main() {
             
             ++array1[0];
             cout << "++array1[0] = " << array1[0] << endl;
+
+            array1[0]++;
+            cout << "array1[0]++ = " << array1[0] << endl;
 
             delete_array(array1);
             delete_array(array2);
