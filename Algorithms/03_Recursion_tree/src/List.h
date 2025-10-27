@@ -1,6 +1,7 @@
 #pragma once
 
 using namespace std;
+#include <iostream>
 
 struct Elem {
     int info;
@@ -54,3 +55,10 @@ void output_list(Elem* top){
     cout << endl;
 }
 
+void delete_list(Elem* top) {
+    while (top) {
+        Elem* temp = top;
+        top = top->next;
+        delete temp;
+    }
+}
