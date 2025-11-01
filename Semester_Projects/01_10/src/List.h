@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAX_IDENT_LENGTH 10
+#define MAX_IDENT_LENGTH 5
 
 #include <cstring>
 

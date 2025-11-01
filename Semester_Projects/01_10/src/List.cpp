@@ -62,7 +62,6 @@ int get_variable_value(VariableNode*& top, const char* ident_str, int m) {
         while (cin.get() != '\n'); 
         new_value = 0;
     }
-    
     set_variable_value(top, ident_str, new_value, m); 
     
     return new_value;
